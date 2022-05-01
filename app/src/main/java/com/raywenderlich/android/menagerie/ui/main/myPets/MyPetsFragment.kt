@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,7 +47,11 @@ class MyPetsFragment : Fragment(), MyPetsView {
     })
   }
 
-  private fun showPetDetails(pet: Pet) {
-    startActivity(PetDetailsActivity.getIntent(requireActivity(), pet))
+  private fun showPetDetails(pet: Pet, pairs: Array<Pair<View, String>>) {
+    val options = ActivityOptionsCompat.makeSceneTransitionAnimation(
+      requireActivity(),
+      *pairs
+    )
+    startActivity(PetDetailsActivity.getIntent(requireActivity(), pet), options.toBundle())
   }
 }

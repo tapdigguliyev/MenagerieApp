@@ -1,5 +1,7 @@
 package com.raywenderlich.android.menagerie.ui.main.adapter
 
+import android.view.View
+import androidx.core.util.Pair
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.raywenderlich.android.menagerie.R
@@ -12,7 +14,7 @@ class PetViewHolder(
 
   fun bindData(
     data: Pet,
-    onItemClick: (Pet) -> Unit,
+    onItemClick: (Pet, Array<Pair<View, String>>) -> Unit,
     onPetSleepClick: (Pet) -> Unit
   ) {
     binding.petAvatar.load(data.image)
@@ -21,6 +23,8 @@ class PetViewHolder(
 
     // todo transition
     binding.petSleep.setOnClickListener { onPetSleepClick(data) }
-    binding.root.setOnClickListener { onItemClick(data) }
+    binding.root.setOnClickListener {
+      val petAvatar: Pair<View, String> = Pair.create(binding.petAvatar, itemView.resources.getString(R.string.transitionPetAvatar))
+      onItemClick(data, arrayOf(petAvatar)) }
   }
 }

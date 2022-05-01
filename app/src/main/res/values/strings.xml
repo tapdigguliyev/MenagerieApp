@@ -10,4 +10,6 @@
   <string name="feedPetTitle">Feed %1$s</string>
   <string name="petDetailsTitle">%1$s Details</string>
   <string name="cannotFeedSleepingPetMessage">You can not feed a sleeping pet!</string>
+  <string name="transitionPetAvatar">PetAvatar</string>
+  <string name="transitionPetSleep">PetSleep</string>
 </resources>

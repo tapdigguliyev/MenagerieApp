@@ -9,6 +9,7 @@
     android:id="@+id/petAvatar"
     android:layout_width="0dp"
     android:layout_height="@dimen/petAvatarItemHeight"
+    android:transitionName="@string/transitionPetAvatar"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toStartOf="@id/petName"
     app:layout_constraintStart_toStartOf="parent"
