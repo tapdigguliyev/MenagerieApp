@@ -25,6 +25,7 @@ class PetViewHolder(
     binding.petSleep.setOnClickListener { onPetSleepClick(data) }
     binding.root.setOnClickListener {
       val petAvatar: Pair<View, String> = Pair.create(binding.petAvatar, itemView.resources.getString(R.string.transitionPetAvatar))
-      onItemClick(data, arrayOf(petAvatar)) }
+      val petSleep: Pair<View, String> = Pair.create(binding.petSleep, itemView.resources.getString(R.string.transitionPetSleep))
+      onItemClick(data, arrayOf(petAvatar, petSleep)) }
   }
 }
