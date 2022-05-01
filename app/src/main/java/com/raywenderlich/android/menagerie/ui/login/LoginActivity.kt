@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.raywenderlich.android.menagerie.R
 import com.raywenderlich.android.menagerie.databinding.ActivityLoginBinding
 import com.raywenderlich.android.menagerie.ui.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,5 +50,6 @@ class LoginActivity : AppCompatActivity(), LoginView {
 
   override fun showPets() {
     startActivity(MainActivity.getIntent(this))
+    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
   }
 }
