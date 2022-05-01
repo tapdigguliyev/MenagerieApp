@@ -19,7 +19,7 @@ class LoginViewModel @ViewModelInject constructor(
 
   fun start() {
     if (menageriePreferences.isUserLoggedIn()) {
-      view.onLoggedIn()
+      view.showPets()
     }
   }
 

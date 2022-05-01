@@ -41,7 +41,13 @@ class LoginActivity : AppCompatActivity(), LoginView {
     }
   }
 
-  override fun onLoggedIn() { // todo button animation, transition, progress
+  override fun onLoggedIn() {
+    binding.loginButton.reverseAnimation {
+      showPets()
+    }
+  }
+
+  override fun showPets() {
     startActivity(MainActivity.getIntent(this))
   }
 }
