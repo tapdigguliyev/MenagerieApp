@@ -41,10 +41,12 @@ class PetDetailsActivity : AppCompatActivity(), PetDetailsView {
     val data = intent.getSerializableExtra(KEY_PET) as? Pet ?: return
     viewModel.setPet(data)
 
-    viewModel.petData.observe(this, {
+    viewModel.petData.observe(this) {
       val pet = it ?: return@observe
 
-      binding.petDetailsTitle.text = getString(R.string.petDetailsTitle, pet.name)
+      binding.collapsingToolbar.setCollapsedTitleTextColor(getColor(R.color.white))
+      binding.collapsingToolbar.setExpandedTitleColor(getColor(R.color.white))
+      binding.petDetailsTitle.title = getString(R.string.petDetailsTitle, pet.name)
       binding.petImage.setImageResource(pet.image)
       binding.petName.text = pet.name
       binding.petDescription.text = pet.description
@@ -56,7 +58,7 @@ class PetDetailsActivity : AppCompatActivity(), PetDetailsView {
       binding.feedPetButton.setOnClickListener {
         viewModel.onPetFeedTap(pet)
       }
-    })
+    }
   }
 
   override fun showFeedingSleepingPetMessage() {

@@ -24,7 +24,7 @@ class SleepingPetsFragment : Fragment(), SleepingPetsView {
   private val adapter by lazy { PetAdapter(::onSleepingPetClick, viewModel::onPetSleepClick) }
   private val viewModel by viewModels<SleepingPetsViewModel>()
 
-  val simpleTouchHelperCallBack by lazy {
+  private val simpleTouchHelperCallBack by lazy {
     SimpleTouchHelperCallBack(
       onItemMoved = (adapter::onItemMoved),
       onItemSwiped = {  position ->

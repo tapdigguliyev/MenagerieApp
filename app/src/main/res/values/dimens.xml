@@ -19,4 +19,5 @@
   <dimen name="tinyMargin">4dp</dimen>
   <dimen name="defaultElevation">2dp</dimen>
   <dimen name="actionButtonSize">56dp</dimen>
+    <dimen name="parallaxImageHeight">200dp</dimen>
 </resources>
