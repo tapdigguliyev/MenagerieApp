@@ -2,6 +2,8 @@ package com.raywenderlich.android.menagerie.ui.main
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.drawable.Animatable2
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.raywenderlich.android.menagerie.databinding.ActivityMainBinding
@@ -41,7 +43,23 @@ class MainActivity : AppCompatActivity() {
     viewPager.adapter = mainPagerAdapter
     tabs.setupWithViewPager(viewPager)
 
-    settingsButton.setOnClickListener { showSettings() }
+    settingsButton.setOnClickListener {
+      val animatable = binding.settingsButton.drawable as? Animatable2
+
+      if (animatable != null) {
+        animatable.registerAnimationCallback(object : Animatable2.AnimationCallback() {
+          override fun onAnimationEnd(drawable: Drawable?) {
+            showSettings()
+            super.onAnimationEnd(drawable)
+          }
+        })
+
+        animatable.start()
+      }else {
+        showSettings()
+      }
+
+    }
   }
 
   private fun showSettings() {
