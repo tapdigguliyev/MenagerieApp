@@ -6,12 +6,13 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import com.google.android.material.appbar.AppBarLayout
 import com.raywenderlich.android.menagerie.R
 import com.raywenderlich.android.menagerie.data.model.Pet
 import com.raywenderlich.android.menagerie.databinding.ActivityPetDetailsBinding
 import com.raywenderlich.android.menagerie.ui.feedPet.FeedPetActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.math.abs
 
 @AndroidEntryPoint
 class PetDetailsActivity : AppCompatActivity(), PetDetailsView {
@@ -54,11 +55,35 @@ class PetDetailsActivity : AppCompatActivity(), PetDetailsView {
 
       binding.petSleep.setImageResource(if (pet.isSleeping) R.drawable.ic_bedtime_24 else R.drawable.ic_sunny_24)
       binding.petSleep.setOnClickListener { viewModel.onPetSleepTap(pet) }
+      binding.petSleepToolbar.setOnClickListener { viewModel.onPetSleepTap(pet) }
 
       binding.feedPetButton.setOnClickListener {
         viewModel.onPetFeedTap(pet)
       }
+
+      binding.appBarLayout.addOnOffsetChangedListener(
+        AppBarLayout.OnOffsetChangedListener{ appBarLayout, verticalOffset ->
+          val scrollRange = appBarLayout.totalScrollRange
+          val percentScrolled = abs(verticalOffset / scrollRange.toFloat())
+
+          binding.petSleepToolbar.setImageResource(if (pet.isSleeping) R.drawable.ic_bedtime_24 else R.drawable.ic_sunny_24)
+          binding.petSleepToolbar.alpha = percentScrolled
+          binding.petSleep.alpha = 1 - percentScrolled
+
+          if (verticalOffset == 0) {
+            binding.feedPetButton.show()
+          } else {
+            binding.feedPetButton.hide()
+          }
+        }
+      )
     }
+  }
+
+  override fun onBackPressed() {
+    binding.petSleep.alpha = 1f
+    binding.petSleepToolbar.alpha = 0f
+    supportFinishAfterTransition()
   }
 
   override fun showFeedingSleepingPetMessage() {

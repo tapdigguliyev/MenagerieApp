@@ -8,6 +8,7 @@
     android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -17,6 +18,7 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="@color/design_default_color_primary"
+            app:expandedTitleMarginEnd="@dimen/minActionWidth"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -34,7 +36,7 @@
                 android:layout_gravity="end|bottom"
                 android:layout_marginEnd="@dimen/defaultMargin"
                 android:layout_marginBottom="@dimen/defaultMargin"
-                android:minWidth="@dimen/minActionWidth"
+                android:minWidth="@dimen/minActionHeight"
                 android:minHeight="@dimen/minActionHeight"
                 android:padding="@dimen/smallPadding"
                 android:scaleType="centerCrop"
@@ -45,9 +47,26 @@
                 android:id="@+id/petDetailsTitle"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:title="@string/appName"
-                android:titleTextColor="@color/white"
-                app:layout_collapseMode="pin" />
+                app:layout_collapseMode="pin"
+                app:title="@string/appName"
+                app:titleMarginEnd="@dimen/minActionWidth"
+                app:titleTextColor="@color/white">
+
+                <ImageView
+                    android:id="@+id/petSleepToolbar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginEnd="@dimen/defaultMargin"
+                    android:layout_marginBottom="@dimen/defaultMargin"
+                    android:alpha="0"
+                    android:minWidth="@dimen/minActionHeight"
+                    android:minHeight="@dimen/minActionHeight"
+                    android:padding="@dimen/smallPadding"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_sunny_24" />
+
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
     </com.google.android.material.appbar.AppBarLayout>
