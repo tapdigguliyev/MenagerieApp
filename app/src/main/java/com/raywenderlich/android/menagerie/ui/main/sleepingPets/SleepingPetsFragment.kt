@@ -8,9 +8,11 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.raywenderlich.android.menagerie.data.model.Pet
 import com.raywenderlich.android.menagerie.databinding.FragmentSleepingPetsBinding
+import com.raywenderlich.android.menagerie.ui.main.SimpleTouchHelperCallBack
 import com.raywenderlich.android.menagerie.ui.main.adapter.PetAdapter
 import com.raywenderlich.android.menagerie.ui.petDetails.PetDetailsActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +23,17 @@ class SleepingPetsFragment : Fragment(), SleepingPetsView {
   private var binding: FragmentSleepingPetsBinding? = null
   private val adapter by lazy { PetAdapter(::onSleepingPetClick, viewModel::onPetSleepClick) }
   private val viewModel by viewModels<SleepingPetsViewModel>()
+
+  val simpleTouchHelperCallBack by lazy {
+    SimpleTouchHelperCallBack(
+      onItemMoved = (adapter::onItemMoved),
+      onItemSwiped = {  position ->
+        val itemSwiped = adapter.getItem(position)
+        adapter.onItemSwiped(position)
+        viewModel.onPetSleepClick(itemSwiped)
+      }
+    )
+  }
 
   override fun onCreateView(
     inflater: LayoutInflater,
@@ -36,9 +49,11 @@ class SleepingPetsFragment : Fragment(), SleepingPetsView {
     super.onViewCreated(view, savedInstanceState)
     viewModel.setView(this)
     val petList = binding?.petList ?: return
+    val itemTouchHelper = ItemTouchHelper(simpleTouchHelperCallBack)
 
     petList.layoutManager = LinearLayoutManager(requireActivity())
     petList.adapter = adapter
+    itemTouchHelper.attachToRecyclerView(petList)
 
     viewModel.sleepingPets.observe(viewLifecycleOwner, { sleepingPets ->
       if (sleepingPets != null) {

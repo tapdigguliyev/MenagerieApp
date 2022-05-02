@@ -32,4 +32,20 @@ class PetAdapter(
   override fun onBindViewHolder(holder: PetViewHolder, position: Int) {
     holder.bindData(items[position], onItemClick, onPetSleepClick)
   }
+
+  fun getItem(position: Int) = items[position]
+
+  fun onItemMoved(oldPosition: Int, newPosition: Int) {
+    val itemToReplace = items[oldPosition]
+    items.remove(itemToReplace)
+
+    val positionToReplace = if (oldPosition > newPosition) newPosition else newPosition - 1
+    items.add(positionToReplace, itemToReplace)
+    notifyItemMoved(oldPosition, positionToReplace)
+  }
+
+  fun onItemSwiped(position: Int) {
+    items.removeAt(position)
+    notifyItemRemoved(position)
+  }
 }
