@@ -23,7 +23,9 @@
     <activity android:name=".ui.petDetails.PetDetailsActivity" />
     <activity android:name=".ui.feedPet.FeedPetActivity" />
     <activity android:name=".ui.main.MainActivity" />
-    <activity android:name=".ui.settings.SettingsActivity" />
+    <activity
+        android:name=".ui.settings.SettingsActivity"
+        android:theme="@style/TransparentTheme"/>
   </application>
 
 </manifest>
